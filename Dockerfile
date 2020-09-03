@@ -9,6 +9,7 @@ ARG MRTRIX3_BUILD_FLAGS=""
 ARG DEBIAN_FRONTEND="noninteractive"
 
 ENV FSLDIR="/opt/fsl"
+ENV FREESURFER_HOME="/opt/freesurfer"
 ENV PATH="/opt/mrtrix3/bin:/opt/fsl/bin:$PATH"
 
 # Install MRtrix3 compile-time dependencies.
@@ -44,6 +45,10 @@ RUN wget -q http://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py -O /fslinstal
     && python2 /fslinstaller.py -d /opt/fsl -V 6.0.4 -q \
     && rm -f /fslinstaller.py \
     && ( which immv || ( rm -rf /opt/fsl/fslpython && /opt/fsl/etc/fslconf/fslpython_install.sh -f /opt/fsl || ( cat /tmp/fslpython*/fslpython_miniconda_installer.log && exit 1 ) ) )
+
+# Grab dummy FreeSrfer lookup table file necessary for testing "5ttgen hsvs"
+RUN mkdir /opt/freesurfer
+COPY FSLUT.txt /opt/freesurfer/FreeSurferColorLUT.txt
 
 # Configure to be immediately ready to work on MRtrix3 
 RUN mkdir /opt/mrtrix3

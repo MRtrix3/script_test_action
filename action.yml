@@ -6,7 +6,7 @@ inputs:
     required: true
 runs:
   using: docker
-  image: .github/script_tests/Dockerfile
+  image: Dockerfile
   args:
     - ${{ inputs.commitish }}
 

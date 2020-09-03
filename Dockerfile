@@ -4,8 +4,6 @@ FROM neurodebian:nd18.04-non-free
 ARG MRTRIX3_CONFIGURE_FLAGS=""
 # Command-line arguments for `./build`
 ARG MRTRIX3_BUILD_FLAGS=""
-# Temporary dependencies for other software packages
-ARG OTHER_TEMP_DEPS="curl file wget"
 
 # Prevent programs like `apt-get` from presenting interactive prompts.
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -19,7 +17,9 @@ RUN apt-get -qq update \
           $OTHER_TEMP_DEPS \
           bc \
           ca-certificates \
+          curl \
           dc \
+          file \
           g++-7 \
           git \
           libeigen3-dev \
@@ -31,6 +31,7 @@ RUN apt-get -qq update \
           libtiff5-dev \
           python \
           qt5-default \
+          wget \
           zlib1g-dev
 
 # Install ANTs.
@@ -44,15 +45,13 @@ RUN wget -q http://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py -O /fslinstal
     && rm -f /fslinstaller.py \
     && ( which immv || ( rm -rf /opt/fsl/fslpython && /opt/fsl/etc/fslconf/fslpython_install.sh -f /opt/fsl || ( cat /tmp/fslpython*/fslpython_miniconda_installer.log && exit 1 ) ) )
 
-# Do a system cleanup.
-RUN apt-get clean \
-    && apt-get remove --purge -y `apt-mark showauto` $OTHER_TEMP_DEPS \
-    && rm -rf /var/lib/apt/lists/*
-
 # Configure to be immediately ready to work on MRtrix3 
 RUN mkdir /opt/mrtrix3
 WORKDIR /opt/mrtrix3
 
+# Script for compiling and running tests
+COPY entrypoint.sh /entrypoint.sh
+
 # git commitish to be checked out provided as argument upon execution of container
-ENTRYPOINT ["bash", "-c", "source /opt/fsl/etc/fslconf/fsl.sh && entrypoint.sh $1"]
+ENTRYPOINT ["bash", "-c", "source /opt/fsl/etc/fslconf/fsl.sh && /entrypoint.sh $1"]
 

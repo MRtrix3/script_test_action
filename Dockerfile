@@ -54,10 +54,5 @@ RUN mkdir /opt/mrtrix3
 WORKDIR /opt/mrtrix3
 
 # git commitish to be checked out provided as argument upon execution of container
-ENTRYPOINT ["bash", "-c", "source /opt/fsl/etc/fslconf/fsl.sh \
-                           && git clone https://github.com/MRtrix3/mrtrix3.git . \
-                           && git checkout $1 \
-                           && ./configure $MRTRIX3_CONFIGURE_FLAGS \
-                           && ./build $MRTRIX3_BUILD_FLAGS \
-                           && ( run_tests scripts || ( cat testing_scripts.log && exit 1 ) )]
+ENTRYPOINT ["bash", "-c", "source /opt/fsl/etc/fslconf/fsl.sh && entrypoint.sh $1"]
 

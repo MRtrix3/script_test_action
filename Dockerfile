@@ -25,10 +25,7 @@ RUN apt-get -qq update \
           git \
           libeigen3-dev \
           libfftw3-dev \
-          libgl1-mesa-dev \
           libpng-dev \
-          libqt5opengl5-dev \
-          libqt5svg5-dev \
           libtiff5-dev \
           python \
           qt5-default \
@@ -44,7 +41,7 @@ RUN wget -q http://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py -O /fslinstal
     && chmod 775 /fslinstaller.py \
     && python2 /fslinstaller.py -d /opt/fsl -V 6.0.4 -q \
     && rm -f /fslinstaller.py \
-    && ( which immv || ( rm -rf /opt/fsl/fslpython && /opt/fsl/etc/fslconf/fslpython_install.sh -f /opt/fsl || ( cat /tmp/fslpython*/fslpython_miniconda_installer.log && exit 1 ) ) )
+    && ( which immv || ( echo "FSLPython not properly configured; re-running" && rm -rf /opt/fsl/fslpython && /opt/fsl/etc/fslconf/fslpython_install.sh -f /opt/fsl || ( cat /tmp/fslpython*/fslpython_miniconda_installer.log && exit 1 ) ) )
 
 # Grab dummy FreeSrfer lookup table file necessary for testing "5ttgen hsvs"
 RUN mkdir /opt/freesurfer

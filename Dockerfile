@@ -43,7 +43,7 @@ RUN wget -q http://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py -O /fslinstal
     && rm -f /fslinstaller.py \
     && ( which immv || ( echo "FSLPython not properly configured; re-running" && rm -rf /opt/fsl/fslpython && /opt/fsl/etc/fslconf/fslpython_install.sh -f /opt/fsl || ( cat /tmp/fslpython*/fslpython_miniconda_installer.log && exit 1 ) ) )
 
-# Grab dummy FreeSrfer lookup table file necessary for testing "5ttgen hsvs"
+# Grab dummy FreeSurfer lookup table file necessary for testing "5ttgen freesurfer" and "5ttgen hsvs"
 RUN mkdir /opt/freesurfer
 COPY FSLUT.txt /opt/freesurfer/FreeSurferColorLUT.txt
 

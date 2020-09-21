@@ -15,5 +15,5 @@ WORKDIR /opt/mrtrix3
 COPY entrypoint.sh /entrypoint.sh
 
 # git commitish to be checked out provided as argument upon execution of container
-ENTRYPOINT ["bash", "-c", "source /opt/fsl/etc/fslconf/fsl.sh && /entrypoint.sh $1"]
+ENTRYPOINT ["bash", "-c", "source /opt/fsl/etc/fslconf/fsl.sh && /entrypoint.sh $0"]
 

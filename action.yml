@@ -1,7 +1,7 @@
 name: script_tests
 description: Execute all script tests, including those with external dependencies, if merging to master
 inputs:
-  commitish:  # id of input
+  commitish: # id of input
     description: 'MRtrix3 git commitish to check out for testing'
     required: true
 runs:

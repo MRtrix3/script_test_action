@@ -1,3 +1,5 @@
+#!/bin/bash
+# Git commitish to be checkout out must be provided as first argument on the command-line
 git clone -b $1 --depth 1 https://github.com/MRtrix3/mrtrix3.git .
 ./configure -assert -nogui
 ./build

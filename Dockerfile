@@ -59,8 +59,6 @@ ENV ANTSPATH="/opt/ants/bin" \
     LD_LIBRARY_PATH="/opt/ants/lib:/opt/fsl/lib:$LD_LIBRARY_PATH" \
     PATH="/opt/mrtrix3/bin:/opt/ants/bin:/opt/art/bin:/opt/fsl/bin:$PATH"
 
-RUN ln -s /usr/bin/python3 /usr/bin/python
-
 # Configure to be immediately ready to work on MRtrix3 
 RUN mkdir /opt/mrtrix3
 WORKDIR /opt/mrtrix3

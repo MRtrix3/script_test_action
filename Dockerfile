@@ -22,7 +22,7 @@ RUN curl -fsSLO https://raw.githubusercontent.com/freesurfer/freesurfer/v7.1.1/d
 # Download minified FSL (6.0.4)
 FROM base as fsl-installer
 WORKDIR /opt/fsl
-RUN curl -fsSL https://osf.io/xtpv5/download \
+RUN curl -fsSL https://osf.io/dv258/download \
     | tar xz --strip-components 1
 
 # Build final image.
